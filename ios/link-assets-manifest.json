@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Arial-BoldMT.ttf",
+      "sha1": "e4cbaadb0a9b0ab4220ce296d2170a7de94d13e8"
+    },
+    {
+      "path": "assets/fonts/ArialMT.ttf",
+      "sha1": "ed3e64b6fbd7c83489b4a2e1b3d653968359a497"
+    },
+    {
+      "path": "assets/fonts/Biryani-Regular.ttf",
+      "sha1": "b5cb7fe7898cec828b0d048e4234903ec1cd57d9"
+    },
+    {
+      "path": "assets/fonts/Biryani-Semibold.ttf",
+      "sha1": "5375d0ecca7f2696fc4067482d61d71e8589579d"
+    },
+    {
+      "path": "assets/fonts/FZKTK--GBK1-0.ttf",
+      "sha1": "6a5329d99bb1d76b5c94a0af12df067e86891035"
+    },
+    {
+      "path": "assets/fonts/PingFangSc-Regular.ttf",
+      "sha1": "f47ab9c6b6d39b720155c1d5f0a7f6f3a05d7dec"
+    },
+    {
+      "path": "assets/fonts/SFProText-Bold.otf",
+      "sha1": "6aab49a17c677dcdc600794752b48bd5249b97ba"
+    },
+    {
+      "path": "assets/fonts/SFProText-Medium.otf",
+      "sha1": "f000561c1ea99fd67d2639b168fddd7d7f339384"
+    },
+    {
+      "path": "assets/fonts/SFProText-Regular.otf",
+      "sha1": "bd5b8459c29f9d2eed7c8ed934ea49181a94a728"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+export const DB_SCHEMAS = {
+  topic: {
+    name: 'Topic',
+    properties: {
+      _id: 'objectId',
+      id: 'int',
+      name: 'string',
+      sentences: 'Sentence[]',
+    },
+    primaryKey: '_id',
+  },
+  levels: {
+    name: 'Levels',
+    properties: {
+      _id: 'objectId',
+      level_hsk: 'string?',
+      level_hsk3: 'string?',
+    },
+    primaryKey: '_id',
+  },
+  segment: {
+    name: 'Segment',
+    properties: {
+      _id: 'objectId',
+      id: 'int?',
+      levels: 'Levels?',
+      word: 'string',
+      pos: 'string',
+      anchor: 'bool',
+    },
+    primaryKey: '_id',
+  },
+  sentence: {
+    name: 'Sentence',
+    properties: {
+      _id: 'objectId',
+      id: 'int',
+      simp: 'string',
+      trans: 'string',
+      voice: 'string',
+      pinyin: 'string?',
+      segments: 'Segment[]',
+    },
+    primaryKey: '_id',
+  },
+  word: {
+    name: 'Word',
+    properties: {
+      _id: 'objectId',
+      id: 'int',
+      voice: 'string?',
+      male_voice: 'string?',
+      level_hsk3: 'string?',
+      level_hsk: 'string?',
+      simp: 'string',
+      trad: 'string',
+      pinyin: 'string?',
+      pos: 'string',
+      normalized_pinyin: 'string?',
+      english: 'string?',
+      sentences: 'Sentence[]',
+    },
+    primaryKey: '_id',
+  },
+};
