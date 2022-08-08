@@ -1,12 +1,6 @@
 /* ------------------------------ Basic imports ----------------------------- */
 import React, {useCallback, useContext, useMemo} from 'react';
-import {
-  ActivityIndicator,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {styles} from './styles';
 
 /* -------------------------------- Libraries ------------------------------- */
@@ -21,7 +15,6 @@ import {PlayerContext} from '../../utils/audioPayer';
 
 /* -------------------------------- Constants ------------------------------- */
 import {ICONS} from '../../constants/_icons';
-import {COLORS} from '../../constants/_colors';
 
 /* ------------------------------- Components ------------------------------- */
 import Word from './word';
@@ -37,12 +30,7 @@ const SentenceCard: SentenceCardType = ({
 }) => {
   /* ---------------------------------- hooks --------------------------------- */
 
-  const {play, loadingUrls} = useContext(PlayerContext) || {};
-
-  const isLoadingAudio = useMemo(
-    () => loadingUrls?.includes(data?.voice as string),
-    [data, loadingUrls],
-  );
+  const {play} = useContext(PlayerContext) || {};
 
   const keyWords = useMemo(() => {
     const wordsString =
@@ -68,24 +56,16 @@ const SentenceCard: SentenceCardType = ({
   return (
     <View style={[styles.sentenceCard, containerStyles]}>
       <View style={styles.sentenceCard__originalsentence}>
-        {isLoadingAudio ? (
-          <ActivityIndicator
-            size="small"
-            style={styles.sentenceCard__soundBtn}
-            color={COLORS.LIGHT_BLUE}
+        <TouchableOpacity
+          onPress={play?.(data?.voice as string)}
+          style={styles.sentenceCard__soundBtn}>
+          <SvgXml
+            width={dw(20)}
+            height={dw(20)}
+            xml={ICONS.soundIcon}
+            style={styles.sentenceCard__soundIcon as ViewStyle}
           />
-        ) : (
-          <TouchableOpacity
-            onPress={play?.(data?.voice as string)}
-            style={styles.sentenceCard__soundBtn}>
-            <SvgXml
-              width={dw(20)}
-              height={dw(20)}
-              xml={ICONS.soundIcon}
-              style={styles.sentenceCard__soundIcon as ViewStyle}
-            />
-          </TouchableOpacity>
-        )}
+        </TouchableOpacity>
 
         {data?.segments?.map((item, index) => (
           <Word

@@ -1,11 +1,5 @@
 /* ------------------------------ Basic imports ----------------------------- */
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Text,
@@ -43,15 +37,10 @@ import {PlayerContext} from '../../utils/audioPayer';
 const WordDetails: WordDetailsType = ({wordId, ...props}) => {
   /* ---------------------------------- Hooks --------------------------------- */
 
-  const {play, loadingUrls} = useContext(PlayerContext) || {};
+  const {play} = useContext(PlayerContext) || {};
 
   const [data, setData] = useState<WordRespDto | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const isLoadingAudio = useMemo(
-    () => loadingUrls?.includes(data?.voice as string),
-    [data, loadingUrls],
-  );
 
   /* -------------------------------- Handlers -------------------------------- */
 
@@ -125,16 +114,12 @@ const WordDetails: WordDetailsType = ({wordId, ...props}) => {
 
           <TouchableOpacity
             onPress={play?.(data?.voice as string)}
-            disabled={isLoadingAudio}
             style={styles.wordDetails__audio}>
-            {isLoadingAudio ? (
-              <ActivityIndicator color={COLORS.LIGHT_BLUE} size="small" />
-            ) : (
-              <SvgXml
-                xml={ICONS.soundIcon}
-                style={styles.wordDetails__audioIcon as ViewStyle}
-              />
-            )}
+            <SvgXml
+              xml={ICONS.soundIcon}
+              style={styles.wordDetails__audioIcon as ViewStyle}
+            />
+
             <Text style={styles.wordDetails__audioText}>{data?.pinyin}</Text>
           </TouchableOpacity>
 
