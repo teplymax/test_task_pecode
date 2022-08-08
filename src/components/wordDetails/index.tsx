@@ -1,5 +1,11 @@
 /* ------------------------------ Basic imports ----------------------------- */
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   ActivityIndicator,
   Text,
@@ -12,7 +18,6 @@ import {hitSlop, styles} from './styles';
 /* -------------------------------- Libraries ------------------------------- */
 import {SvgXml} from 'react-native-svg';
 import {SwipeablePanel} from 'rn-swipeable-panel';
-import SoundPlayer from 'react-native-sound-player';
 
 /* ---------------------------------- Types --------------------------------- */
 import {WordDetailsType} from './type';
@@ -33,12 +38,20 @@ import {getWords} from '../../API/dictionary';
 /* ---------------------------------- Utils --------------------------------- */
 import Realm from '../../utils/realmDB';
 import {DB_SCHEMAS} from '../../utils/realmDB/realmSchemas';
+import {PlayerContext} from '../../utils/audioPayer';
 
 const WordDetails: WordDetailsType = ({wordId, ...props}) => {
   /* ---------------------------------- Hooks --------------------------------- */
 
+  const {play, loadingUrls} = useContext(PlayerContext) || {};
+
   const [data, setData] = useState<WordRespDto | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const isLoadingAudio = useMemo(
+    () => loadingUrls?.includes(data?.voice as string),
+    [data, loadingUrls],
+  );
 
   /* -------------------------------- Handlers -------------------------------- */
 
@@ -48,8 +61,6 @@ const WordDetails: WordDetailsType = ({wordId, ...props}) => {
     const wordData = Realm.objects<WordRespDto>(DB_SCHEMAS.word.name).filtered(
       `id = '${wordId}'`,
     );
-
-    console.log(wordData);
 
     if (!wordData.length) {
       const data = await getWords([wordId as number]);
@@ -67,15 +78,6 @@ const WordDetails: WordDetailsType = ({wordId, ...props}) => {
 
     setLoading(false);
   }, [wordId]);
-
-  const handlePlay = useCallback(() => {
-    try {
-      if (data?.voice) SoundPlayer.playUrl(data?.voice);
-      else throw new Error('Invalid url');
-    } catch (e) {
-      console.log(`Cannot play the sound file`, e);
-    }
-  }, [data]);
 
   useEffect(() => {
     if (typeof wordId === 'number') handleGetData();
@@ -122,12 +124,17 @@ const WordDetails: WordDetailsType = ({wordId, ...props}) => {
           </View>
 
           <TouchableOpacity
-            onPress={handlePlay}
+            onPress={play?.(data?.voice as string)}
+            disabled={isLoadingAudio}
             style={styles.wordDetails__audio}>
-            <SvgXml
-              xml={ICONS.soundIcon}
-              style={styles.wordDetails__audioIcon as ViewStyle}
-            />
+            {isLoadingAudio ? (
+              <ActivityIndicator color={COLORS.LIGHT_BLUE} size="small" />
+            ) : (
+              <SvgXml
+                xml={ICONS.soundIcon}
+                style={styles.wordDetails__audioIcon as ViewStyle}
+              />
+            )}
             <Text style={styles.wordDetails__audioText}>{data?.pinyin}</Text>
           </TouchableOpacity>
 

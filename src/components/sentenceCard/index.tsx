@@ -1,20 +1,27 @@
 /* ------------------------------ Basic imports ----------------------------- */
-import React, {useCallback, useMemo} from 'react';
-import {Text, TouchableOpacity, View, ViewStyle} from 'react-native';
+import React, {useCallback, useContext, useMemo} from 'react';
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {styles} from './styles';
 
 /* -------------------------------- Libraries ------------------------------- */
 import {SvgXml} from 'react-native-svg';
-import SoundPlayer from 'react-native-sound-player';
 
 /* ---------------------------------- Types --------------------------------- */
 import {SentenceCardType} from './type';
 
 /* ---------------------------------- Utils --------------------------------- */
 import {dw} from '../../utils/dimensions';
+import {PlayerContext} from '../../utils/audioPayer';
 
 /* -------------------------------- Constants ------------------------------- */
 import {ICONS} from '../../constants/_icons';
+import {COLORS} from '../../constants/_colors';
 
 /* ------------------------------- Components ------------------------------- */
 import Word from './word';
@@ -29,6 +36,13 @@ const SentenceCard: SentenceCardType = ({
   onWordPress,
 }) => {
   /* ---------------------------------- hooks --------------------------------- */
+
+  const {play, loadingUrls} = useContext(PlayerContext) || {};
+
+  const isLoadingAudio = useMemo(
+    () => loadingUrls?.includes(data?.voice as string),
+    [data, loadingUrls],
+  );
 
   const keyWords = useMemo(() => {
     const wordsString =
@@ -49,30 +63,29 @@ const SentenceCard: SentenceCardType = ({
     [data],
   );
 
-  const handlePlay = useCallback(() => {
-    try {
-      if (data?.voice) SoundPlayer.playUrl(data?.voice);
-      else throw new Error('Invalid url');
-    } catch (e) {
-      console.log(`Cannot play the sound file`, e);
-    }
-  }, [data]);
-
   /* --------------------------------- Render --------------------------------- */
 
   return (
     <View style={[styles.sentenceCard, containerStyles]}>
       <View style={styles.sentenceCard__originalsentence}>
-        <TouchableOpacity
-          onPress={handlePlay}
-          style={styles.sentenceCard__soundBtn}>
-          <SvgXml
-            width={dw(20)}
-            height={dw(20)}
-            xml={ICONS.soundIcon}
-            style={styles.sentenceCard__soundIcon as ViewStyle}
+        {isLoadingAudio ? (
+          <ActivityIndicator
+            size="small"
+            style={styles.sentenceCard__soundBtn}
+            color={COLORS.LIGHT_BLUE}
           />
-        </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={play?.(data?.voice as string)}
+            style={styles.sentenceCard__soundBtn}>
+            <SvgXml
+              width={dw(20)}
+              height={dw(20)}
+              xml={ICONS.soundIcon}
+              style={styles.sentenceCard__soundIcon as ViewStyle}
+            />
+          </TouchableOpacity>
+        )}
 
         {data?.segments?.map((item, index) => (
           <Word
