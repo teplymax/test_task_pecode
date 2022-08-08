@@ -18,6 +18,7 @@ import {ICONS} from '../../constants/_icons';
 
 /* ------------------------------- Components ------------------------------- */
 import Word from './word';
+import Hint from './hint';
 
 /* ---------------------------------- Types --------------------------------- */
 import {SegmentDto} from '../../types/api';
@@ -55,7 +56,7 @@ const SentenceCard: SentenceCardType = ({
 
   return (
     <View style={[styles.sentenceCard, containerStyles]}>
-      <View style={styles.sentenceCard__originalsentence}>
+      <View style={styles.sentenceCard__originalSentence}>
         <TouchableOpacity
           onPress={play?.(data?.voice as string)}
           style={styles.sentenceCard__soundBtn}>
@@ -98,6 +99,8 @@ const SentenceCard: SentenceCardType = ({
           Key Words :
         </Text>
         <Text style={[styles.sentenceCard__text]}>{keyWords}</Text>
+
+        <Hint customContainerStyles={styles.sentenceCard__hint} />
       </View>
     </View>
   );

@@ -1,0 +1,15 @@
+diff --git a/node_modules/rn-swipeable-panel/src/Panel.tsx b/node_modules/rn-swipeable-panel/src/Panel.tsx
+index 6eb28e4..becbe84 100644
+--- a/node_modules/rn-swipeable-panel/src/Panel.tsx
++++ b/node_modules/rn-swipeable-panel/src/Panel.tsx
+@@ -297,8 +297,8 @@ const SwipeablePanelStyles = StyleSheet.create({
+     flexDirection: 'column',
+     backgroundColor: 'white',
+     bottom: 0,
+-    borderTopLeftRadius: 20,
+-    borderTopRightRadius: 20,
++    borderTopLeftRadius: 10,
++    borderTopRightRadius: 10,
+     borderBottomLeftRadius: 0,
+     borderBottomRightRadius: 0,
+     overflow: 'hidden',

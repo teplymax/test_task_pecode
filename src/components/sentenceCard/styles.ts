@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     borderRadius: dw(10),
   },
-  sentenceCard__originalsentence: {
+  sentenceCard__originalSentence: {
     ...globalStyles.alignedRow,
     flexWrap: 'wrap',
     paddingLeft: dw(26),
@@ -55,5 +55,8 @@ export const styles = StyleSheet.create({
   sentenceCard__keywordsExplanation: {
     ...FONTS.arial.bold14x20,
     marginHorizontal: dw(10),
+  },
+  sentenceCard__hint: {
+    marginLeft: 'auto',
   },
 });

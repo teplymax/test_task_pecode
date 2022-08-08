@@ -8,7 +8,8 @@ export const COLORS = {
   LIGHT_BLUE: '#6ACFED',
   YELLOW: '#FCC811',
   LIME_YELLOW: '#E4E900',
-  DARK_BLUE: '#26293F',
+  BLUE: '#26293F',
   MAIN_BG: '#F5F5F5',
   LIGHTEST_GREY: '#FBFCFC',
+  DARK_BLUE: '#11121b',
 };

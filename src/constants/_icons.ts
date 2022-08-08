@@ -1,3 +1,5 @@
+import {triangleIcon} from './../../assets/icons/triangle';
+import {hintIcon} from './../../assets/icons/hint';
 import {soundIcon} from './../../assets/icons/sound';
 import {closeIcom} from './../../assets/icons/close';
 import {bookmarkIcon} from './../../assets/icons/bookmark';
@@ -10,4 +12,6 @@ export const ICONS = {
   bookmarkIcon,
   closeIcom,
   soundIcon,
+  hintIcon,
+  triangleIcon,
 };

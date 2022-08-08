@@ -105,6 +105,7 @@ export const styles = StyleSheet.create({
   },
   wordDetails__symbolText: {
     ...FONTS.sfPro.medium14x14,
+    top: dw(2),
     color: COLORS.WHITE_SMOKE,
   },
   wordDetails__wordSymbol: {

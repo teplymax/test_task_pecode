@@ -86,16 +86,26 @@ const Home: FC = () => {
           style={styles.home__loader}
         />
       ) : (
-        <ScrollView style={styles.home__content}>
-          <Text style={styles.home__title}>
-            Sample sentence of {data?.name}
-          </Text>
+        <ScrollView
+          style={styles.home__content}
+          contentContainerStyle={styles.home__contentContainer}>
+          {data ? (
+            <>
+              <Text style={styles.home__title}>
+                Sample sentence of {data?.name}
+              </Text>
 
-          <SentenceCard
-            selectedWord={showWord ? showWord.index : false}
-            data={data?.sentences?.[0]}
-            onWordPress={handleToggleWord}
-          />
+              <SentenceCard
+                selectedWord={showWord ? showWord.index : false}
+                data={data?.sentences?.[0]}
+                onWordPress={handleToggleWord}
+              />
+            </>
+          ) : (
+            <Text style={[styles.home__title, styles.home__errorText]}>
+              Error loading data
+            </Text>
+          )}
         </ScrollView>
       )}
 

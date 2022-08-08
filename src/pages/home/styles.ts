@@ -1,5 +1,5 @@
 /* ------------------------------ Basic imports ----------------------------- */
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {globalStyles} from '../../../globalStyles';
 
 /* ---------------------------------- Utils --------------------------------- */
@@ -16,11 +16,17 @@ export const styles = StyleSheet.create({
   home__content: {
     ...globalStyles.inner,
   },
+  home__contentContainer: {
+    paddingBottom: Platform.OS === 'android' ? dh(140) : dh(40),
+  },
   home__title: {
     ...FONTS.arial.regular14x20,
     color: COLORS.GREY_MEDIUM,
     marginBottom: dh(8),
     marginTop: dh(16),
+  },
+  home__errorText: {
+    textAlign: 'center',
   },
   home__loader: {
     marginTop: dh(24),
